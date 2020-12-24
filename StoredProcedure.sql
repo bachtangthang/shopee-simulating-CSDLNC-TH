@@ -1,3 +1,4 @@
+
 --Chọn sản phẩm để cập nhật
 create proc sp_ChonSanPhamCapNhat(@tensp nvarchar(20))
 as
