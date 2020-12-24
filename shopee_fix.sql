@@ -658,12 +658,14 @@ create table VOUCHERSHOP (
    MAVOUCHER            nvarchar(10)             not null,
    MATAIKHOAN           nvarchar(10)             null,
    MASHOP               nvarchar(10)             NOT NULL,
-   MAPHIEU              nvarchar(10)             null,
-   SOTIENGIAM           float                not null,
-   PHANTRAMGIAM         float                not null,
+   SOTIENGIAM           float                null,
+   PHANTRAMGIAM         float                null,
    SOTIENTOITHIEUYEUCAU float                null,
    SOHANGTOITHIEU       int                  null,
-   constraint PK_VOUCHERSHOP primary key (MAVOUCHER)
+   constraint PK_VOUCHERSHOP primary key (MAVOUCHER),
+   constraint only_one_value 
+        check (        (SOTIENGIAM is null or PHANTRAMGIAM is null) 
+               and not (SOTIENGIAM is null and PHANTRAMGIAM is null) )
 )
 go
 
@@ -804,4 +806,3 @@ go
 ALTER TABLE dbo.SANPHAMCHON
 	ADD CONSTRAINT fk_SANPHAMCHON_CO_VOUCHERSHOP FOREIGN KEY (MAVOUCHER)
 		REFERENCES dbo.VOUCHERSHOP(MAVOUCHER)
-		
