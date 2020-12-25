@@ -1,0 +1,9 @@
+C:\Users\Admin\Desktop\shopee-simulating-CSDLNC-TH-main\shopee-simulating-CSDLNC-TH-main\shoppe\shoppe\bin\Debug\shoppe.exe.config
+C:\Users\Admin\Desktop\shopee-simulating-CSDLNC-TH-main\shopee-simulating-CSDLNC-TH-main\shoppe\shoppe\obj\Debug\shoppe.csprojResolveAssemblyReference.cache
+C:\Users\Admin\Desktop\shopee-simulating-CSDLNC-TH-main\shopee-simulating-CSDLNC-TH-main\shoppe\shoppe\obj\Debug\shoppe.Form1.resources
+C:\Users\Admin\Desktop\shopee-simulating-CSDLNC-TH-main\shopee-simulating-CSDLNC-TH-main\shoppe\shoppe\obj\Debug\shoppe.Properties.Resources.resources
+C:\Users\Admin\Desktop\shopee-simulating-CSDLNC-TH-main\shopee-simulating-CSDLNC-TH-main\shoppe\shoppe\obj\Debug\shoppe.csproj.GenerateResource.Cache
+C:\Users\Admin\Desktop\shopee-simulating-CSDLNC-TH-main\shopee-simulating-CSDLNC-TH-main\shoppe\shoppe\bin\Debug\shoppe.exe
+C:\Users\Admin\Desktop\shopee-simulating-CSDLNC-TH-main\shopee-simulating-CSDLNC-TH-main\shoppe\shoppe\bin\Debug\shoppe.pdb
+C:\Users\Admin\Desktop\shopee-simulating-CSDLNC-TH-main\shopee-simulating-CSDLNC-TH-main\shoppe\shoppe\obj\Debug\shoppe.exe
+C:\Users\Admin\Desktop\shopee-simulating-CSDLNC-TH-main\shopee-simulating-CSDLNC-TH-main\shoppe\shoppe\obj\Debug\shoppe.pdb
