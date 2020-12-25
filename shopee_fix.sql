@@ -1,10 +1,10 @@
-﻿/*==============================================================*/
+/*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
 /* Created on:     12/22/2020 2:32:04 PM                        */
 /*==============================================================*/
---drop database test
---create database test
-use test
+--drop database test1
+--create database test1
+use test1
 go
 
 
@@ -479,7 +479,16 @@ create table CHITIETNGANHHANG (
 )
 go
 
+/*==============================================================*/
+/* Table: SHOP			                                        */
+/*==============================================================*/
+CREATE TABLE SHOP (
+	MATAIKHOAN			NVARCHAR(10)			NOT NULL,
+	MASHOP				NVARCHAR(10)			NOT NULL,
+	CONSTRAINT PK_SHOP PRIMARY KEY NONCLUSTERED (MATAIKHOAN,MASHOP)
+)
 
+go
 
 /*==============================================================*/
 /* Table: DIACHI                                                */
@@ -606,6 +615,7 @@ create table SANPHAMCHON (
    GIATRITHANHTOAN      float                not null,
    CONTRONGGIOHANG      bit                  not null,
    MAVOUCHER			nvarchar(10)		NULL,
+   DONVIVANCHUYEN		NVARCHAR(10)		NULL,
    constraint PK_SANPHAMCHON primary key nonclustered (MATAIKHOAN, STT)
 )
 go
@@ -616,7 +626,6 @@ go
 /*==============================================================*/
 create table TAIKHOAN (
    MATAIKHOAN           nvarchar(10)             not null,
-   MASHOP               nvarchar(10)             null unique,
    TENDANGNHAP          nvarchar(50)             not null,
    MATKHAU              nvarchar(50)             not null,
    HOSO                 nvarchar(50)             not null,
@@ -694,37 +703,6 @@ alter table LUACHON
       references MATHANG (MAMATHANG)
 go
 
-
-
-
-alter table MATHANG
-   add constraint FK_MATHANG_BAN_HANG_TAIKHOAN foreign key (MATAIKHOAN)
-      references TAIKHOAN (MATAIKHOAN)
-go
-
---@@2
-
-alter table MATHANG
-   add constraint FK_MATHANG_BAN_HANG_TAIKHOAN2 foreign key (MASHOP)
-      references TAIKHOAN (MASHOP)
-go
-
---alter table MATHANG
---  add constraint FK_MATHANG_CO_THONG__THONGTIN2 foreign key (MAMATHANG, TENCUMPHANLOAI)
---     references THONGTINBANHANG (MAMATHANG, TENCUMPHANLOAI)
---go
-
---alter table MATHANG
---   add constraint FK_MATHANG_CO_THONG__THONGTIN foreign key (MAMATHANG)
---      references THONGTINKHAC (MAMATHANG)
---go
-
-
---alter table MATHANG
---   add constraint FK_MATHANG_CO_THONG__THONGTIN3 foreign key (MAMATHANG)
---      references THONGTINVANCHUYEN (MAMATHANG)
---go
-
 alter table NHOMNGANHHANG
    add constraint FK_NHOMNGAN_THUOC_NHO_MATHANG foreign key (MAMATHANG)
       references MATHANG (MAMATHANG)
@@ -735,12 +713,6 @@ alter table PHIEUTHANHTOAN
       references VOUCHER (MAVOUCHER)
 go
 
-/*
-alter table SANPHAMCHON
-   add constraint FK_SANPHAMC_CHON_MUA__MATHANG foreign key (MAMATHANG)
-      references MATHANG (MAMATHANG)
-go
-*/
 
 alter table SANPHAMCHON
    add constraint FK_SANPHAMC_CHON_MUA__LUACHON foreign key (MAMATHANG, MALUACHON)
@@ -758,30 +730,6 @@ alter table SANPHAMCHON
       references PHIEUTHANHTOAN (MAPHIEU)
 go
 
---alter table SHOP
---   add constraint FK_SHOP_CO2_TAIKHOAN foreign key (MATAIKHOAN)
---      references TAIKHOAN (MATAIKHOAN)
---go
-
---alter table TAIKHOAN
---   add constraint FK_TAIKHOAN_CO_SHOP foreign key (SHO_MATAIKHOAN, MASHOP)
---      references SHOP (MATAIKHOAN, MASHOP)
---go
-
---alter table THONGTINBANHANG
---   add constraint FK_THONGTIN_CO_THONG__MATHANG2 foreign key (MAMATHANG)
---      references MATHANG (MAMATHANG)
---go
-
---alter table THONGTINKHAC
---   add constraint FK_THONGTIN_CO_THONG__MATHANG foreign key (MAMATHANG)
---      references MATHANG (MAMATHANG)
---go
-
---alter table THONGTINVANCHUYEN
---   add constraint FK_THONGTIN_CO_THONG__MATHANG3 foreign key (MAMATHANG)
---      references MATHANG (MAMATHANG)
---go
 
 alter table VAN_CHUYEN_MAT_HANG
    add constraint FK_VAN_CHUY_VAN_CHUYE_DONVIVAN foreign key (MADONVI)
@@ -793,27 +741,30 @@ alter table VAN_CHUYEN_MAT_HANG
       references MATHANG (MAMATHANG)
 go
 
---alter table VOUCHER
---   add constraint FK_VOUCHER_GIAM_GIA_PHIEUTHA foreign key (MAPHIEU)
---      references PHIEUTHANHTOAN (MAPHIEU)
---go
-
 alter table VOUCHERSHOP
    add constraint FK_VOUCHERS_INHERITAN_VOUCHER foreign key (MAVOUCHER)
       references VOUCHER (MAVOUCHER)
 go
 
-alter table VOUCHERSHOP
-   add constraint FK_VOUCHERS_THUOC_VE_TAIKHOAN foreign key (MATAIKHOAN)
-      references TAIKHOAN (MATAIKHOAN)
-go
-
---@@3
-alter table VOUCHERSHOP
-   add constraint FK_VOUCHERS_THUOC_VE_TAIKHOAN2 foreign key (MASHOP)
-      references TAIKHOAN (MASHOP)
-go
 
 ALTER TABLE dbo.SANPHAMCHON
 	ADD CONSTRAINT fk_SANPHAMCHON_CO_VOUCHERSHOP FOREIGN KEY (MAVOUCHER)
 		REFERENCES dbo.VOUCHERSHOP(MAVOUCHER)
+
+GO 
+
+ALTER TABLE dbo.SHOP
+	ADD CONSTRAINT fk_SHOP_LA_TAIKHOAN FOREIGN KEY (MATAIKHOAN)
+		REFERENCES dbo.TAIKHOAN(MATAIKHOAN)
+
+GO
+
+ALTER TABLE dbo.MATHANG
+	ADD CONSTRAINT fk_MATHANG_THUOC_SHOP FOREIGN KEY (MATAIKHOAN, MASHOP)
+		REFERENCES dbo.SHOP(MATAIKHOAN,MASHOP)
+
+GO
+
+ALTER TABLE dbo.VOUCHERSHOP
+	ADD CONSTRAINT fk_VOUCHERSHOP_THUOC_SHOP FOREIGN KEY (MATAIKHOAN,MASHOP)
+		REFERENCES dbo.SHOP(MATAIKHOAN,MASHOP)
