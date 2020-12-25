@@ -1,4 +1,4 @@
-/*==============================================================*/
+﻿/*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
 /* Created on:     12/22/2020 2:32:04 PM                        */
 /*==============================================================*/
@@ -6,6 +6,7 @@
 --create database test
 use test
 go
+
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
@@ -528,10 +529,11 @@ create table LUACHON (
    MAMATHANG            nvarchar(10)             not null,
    TENCUMPHANLOAI       nvarchar(10)             not null,
    TENLUACHON           nvarchar(20)             not null,
+   MALUACHON			nvarchar(10)			not null,
    SOLUONGTONKHO        int                  not null,
    GIACA                float                not null,
    SKUPHANLOAI          nvarchar(10)             null,
-   constraint PK_LUACHON primary key nonclustered (MAMATHANG, TENCUMPHANLOAI, TENLUACHON)
+   constraint PK_LUACHON primary key nonclustered (MAMATHANG, MALUACHON)
 )
 go
 
@@ -597,6 +599,7 @@ create table SANPHAMCHON (
    MATAIKHOAN           nvarchar(10)             not null,
    STT                  int                  not null,
    MAMATHANG            nvarchar(10)             not null,
+   MALUACHON			nvarchar(10)			not null,
    MAPHIEU              nvarchar(10)             null,
    SOLUONG              int                  not null,
    GIAGOC               float                not null,
@@ -732,10 +735,18 @@ alter table PHIEUTHANHTOAN
       references VOUCHER (MAVOUCHER)
 go
 
+/*
 alter table SANPHAMCHON
    add constraint FK_SANPHAMC_CHON_MUA__MATHANG foreign key (MAMATHANG)
       references MATHANG (MAMATHANG)
 go
+*/
+
+alter table SANPHAMCHON
+   add constraint FK_SANPHAMC_CHON_MUA__LUACHON foreign key (MAMATHANG, MALUACHON)
+      references LUACHON (MAMATHANG, MALUACHON)
+go
+
 
 alter table SANPHAMCHON
    add constraint FK_SANPHAMC_CO_MAT_HA_TAIKHOAN foreign key (MATAIKHOAN)
