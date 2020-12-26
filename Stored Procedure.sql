@@ -1,8 +1,8 @@
 --Chọn sản phẩm để cập nhật
-create proc sp_ChonSanPhamCapNhat(@tensp nvarchar(20))
+create proc sp_ChonSanPhamCapNhat(@masp nvarchar(20))
 as
 begin
-	select MAMATHANG from MATHANG where TENMATHANG=@tensp
+	select TENMATHANG from MATHANG where MAMATHANG=@masp
 end
 
 --Cap nhat san pham
